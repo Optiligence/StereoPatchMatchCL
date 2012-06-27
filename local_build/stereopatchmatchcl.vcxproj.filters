@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\StereoPatchMatchCL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\StereoPatchMatchCL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{BBCD8711-AF08-4325-BF6E-117B7E3C60A0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{08C4F216-A359-4489-A9A1-3E7B3089C61D}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\StereoPatchMatchCL.hxx">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\kernel.cl" />
+  </ItemGroup>
+</Project>

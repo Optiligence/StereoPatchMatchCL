@@ -39,6 +39,9 @@
 
 #include <charon-core/ParameteredObject.h>
 #include <charon-utils/CImg.h>
+#include <iostream>
+#define __NO_STD_VECTOR // Use cl::vector instead of STL version
+#include <CL\cl.hpp>
 
 /// StereoPatchMatch using Open CL
 /** TODO detailed desciption
@@ -52,7 +55,7 @@ public:
 	StereoPatchMatchCL(const std::string& name = "");
 
 	/// TODO docu
-	InputSlot< cimg_library::CImgList<T> > imgScr;
+	InputSlot< cimg_library::CImgList<T> > imgSrc;
 
 	/// TODO docu
 	OutputSlot< cimg_library::CImgList<T> > imgOut;
@@ -64,6 +67,7 @@ public:
 
 	/// Update object.
 	virtual void execute();
+	std::string kernelDecl();
 };
 
 #endif // _STEREOPATCHMATCHCL_H_

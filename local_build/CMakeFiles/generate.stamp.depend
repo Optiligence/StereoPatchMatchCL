@@ -1,0 +1,52 @@
+# CMake generation dependency list for this directory.
+E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/CMakeLists.txt
+E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/CMakeSystem.cmake
+E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/CMakeCCompiler.cmake
+E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/CMakeCXXCompiler.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeSystemSpecificInformation.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeGenericSystem.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/Platform/Windows.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/Platform/WindowsPaths.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeCInformation.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/Platform/Windows-cl.cmake
+E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/CMakeCPlatform.cmake
+E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/CMakeCXXPlatform.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/Platform/cl.cmake
+E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/CMakeRCCompiler.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeRCInformation.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeCommonLanguageInclude.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeCXXInformation.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/Platform/Windows-cl.cmake
+E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/CMakeCPlatform.cmake
+E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/CMakeCXXPlatform.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/Platform/cl.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeCommonLanguageInclude.cmake
+E:/_Own-Zone/_Studium/Praktikum/charon-suite64/cmake/charon-core-config-version.cmake
+E:/_Own-Zone/_Studium/Praktikum/charon-suite64/cmake/charon-core-config.cmake
+E:/_Own-Zone/_Studium/Praktikum/charon-suite64/cmake/charon-meta-export.cmake
+E:/_Own-Zone/_Studium/Praktikum/charon-suite64/cmake/charon-meta-export-debug.cmake
+E:/_Own-Zone/_Studium/Praktikum/charon-suite64/cmake/charon-meta-export-release.cmake
+E:/_Own-Zone/_Studium/Praktikum/charon-suite64/cmake/charon-utils-config-version.cmake
+E:/_Own-Zone/_Studium/Praktikum/charon-suite64/cmake/charon-utils-config.cmake
+E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/CImgConfig.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/FindPNG.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/FindZLIB.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/FindPackageMessage.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeParseArguments.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/FindPackageMessage.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeParseArguments.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/FindJPEG.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/FindPackageMessage.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeParseArguments.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/FindTIFF.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/FindPackageMessage.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeParseArguments.cmake
+E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/InitFlags.cmake
+E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/FindOpenCL.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/FindPackageMessage.cmake
+C:/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeParseArguments.cmake

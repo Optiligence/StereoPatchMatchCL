@@ -1,0 +1,3 @@
+E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/ALL_BUILD.dir
+E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/ZERO_CHECK.dir
+E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/stereopatchmatchcl.dir

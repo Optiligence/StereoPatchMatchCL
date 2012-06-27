@@ -1,0 +1,131 @@
+The system is: Windows - 6.2 - x86
+Determining if the C compiler works passed with the following output:
+Change Dir: E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/CMakeTmp
+
+Run Build Command:C:\PROGRA~2\MICROS~3.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec1856598847
+
+Microsoft (R) Visual Studio Version 10.0.30319.1.
+Copyright (C) Microsoft Corp. Alle Rechte vorbehalten.
+1>------ Erstellen gestartet: Projekt: cmTryCompileExec1856598847, Konfiguration: Debug x64 ------
+1>Der Buildvorgang wurde am 2012-06-27 20:09:15 Uhr gestartet.
+1>PrepareForBuild:
+1>  Das Verzeichnis "E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeTmp\Debug\" wird erstellt.
+1>InitializeBuildStatus:
+1>  "cmTryCompileExec1856598847.dir\Debug\cmTryCompileExec1856598847.unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
+1>ClCompile:
+1>  Microsoft (R) C/C++ Optimizing Compiler Version 16.00.30319.01 for x64
+1>  Copyright (C) Microsoft Corporation.  All rights reserved.
+1>  
+1>  cl /c /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec1856598847.dir\Debug\\" /Fd"E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec1856598847.pdb" /Gd /TC /errorReport:prompt "E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeTmp\testCCompiler.c"  /Zm1000 
+1>  
+1>  testCCompiler.c
+1>Link:
+1>  cmTryCompileExec1856598847.vcxproj -> E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1856598847.exe
+1>LinkEmbedManifest:
+1>  cmTryCompileExec1856598847.vcxproj -> E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1856598847.exe
+1>FinalizeBuildStatus:
+1>  Die Datei "cmTryCompileExec1856598847.dir\Debug\cmTryCompileExec1856598847.unsuccessfulbuild" wird gelîscht.
+1>  Aktualisieren des Timestamps von "cmTryCompileExec1856598847.dir\Debug\cmTryCompileExec1856598847.lastbuildstate".
+1>
+1>Das Erstellen war erfolgreich.
+1>
+1>Verstrichene Zeit 00:00:03.63
+========== Erstellen: 1 erfolgreich, Fehler bei 0, 0 aktuell, 0 Åbersprungen ==========
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/CMakeTmp
+
+Run Build Command:C:\PROGRA~2\MICROS~3.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec4276085915
+
+Microsoft (R) Visual Studio Version 10.0.30319.1.
+Copyright (C) Microsoft Corp. Alle Rechte vorbehalten.
+1>------ Erstellen gestartet: Projekt: cmTryCompileExec4276085915, Konfiguration: Debug x64 ------
+1>Der Buildvorgang wurde am 2012-06-27 20:09:22 Uhr gestartet.
+1>InitializeBuildStatus:
+1>  "cmTryCompileExec4276085915.dir\Debug\cmTryCompileExec4276085915.unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
+1>ClCompile:
+1>  Microsoft (R) C/C++ Optimizing Compiler Version 16.00.30319.01 for x64
+1>  Copyright (C) Microsoft Corporation.  All rights reserved.
+1>  
+1>  cl /c /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec4276085915.dir\Debug\\" /Fd"E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec4276085915.pdb" /Gd /TC /errorReport:prompt "C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCCompilerABI.c"  /Zm1000 
+1>  
+1>  CMakeCCompilerABI.c
+1>Link:
+1>  cmTryCompileExec4276085915.vcxproj -> E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec4276085915.exe
+1>LinkEmbedManifest:
+1>  cmTryCompileExec4276085915.vcxproj -> E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec4276085915.exe
+1>FinalizeBuildStatus:
+1>  Die Datei "cmTryCompileExec4276085915.dir\Debug\cmTryCompileExec4276085915.unsuccessfulbuild" wird gelîscht.
+1>  Aktualisieren des Timestamps von "cmTryCompileExec4276085915.dir\Debug\cmTryCompileExec4276085915.lastbuildstate".
+1>
+1>Das Erstellen war erfolgreich.
+1>
+1>Verstrichene Zeit 00:00:01.37
+========== Erstellen: 1 erfolgreich, Fehler bei 0, 0 aktuell, 0 Åbersprungen ==========
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/CMakeTmp
+
+Run Build Command:C:\PROGRA~2\MICROS~3.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec927565320
+
+Microsoft (R) Visual Studio Version 10.0.30319.1.
+Copyright (C) Microsoft Corp. Alle Rechte vorbehalten.
+1>------ Erstellen gestartet: Projekt: cmTryCompileExec927565320, Konfiguration: Debug x64 ------
+1>Der Buildvorgang wurde am 2012-06-27 20:09:26 Uhr gestartet.
+1>InitializeBuildStatus:
+1>  "cmTryCompileExec927565320.dir\Debug\cmTryCompileExec927565320.unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
+1>ClCompile:
+1>  Microsoft (R) C/C++ Optimizing Compiler Version 16.00.30319.01 for x64
+1>  Copyright (C) Microsoft Corporation.  All rights reserved.
+1>  
+1>  cl /c /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec927565320.dir\Debug\\" /Fd"E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec927565320.pdb" /Gd /TP /errorReport:prompt "E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx"  /Zm1000 
+1>  
+1>  testCXXCompiler.cxx
+1>Link:
+1>  cmTryCompileExec927565320.vcxproj -> E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec927565320.exe
+1>LinkEmbedManifest:
+1>  cmTryCompileExec927565320.vcxproj -> E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec927565320.exe
+1>FinalizeBuildStatus:
+1>  Die Datei "cmTryCompileExec927565320.dir\Debug\cmTryCompileExec927565320.unsuccessfulbuild" wird gelîscht.
+1>  Aktualisieren des Timestamps von "cmTryCompileExec927565320.dir\Debug\cmTryCompileExec927565320.lastbuildstate".
+1>
+1>Das Erstellen war erfolgreich.
+1>
+1>Verstrichene Zeit 00:00:01.34
+========== Erstellen: 1 erfolgreich, Fehler bei 0, 0 aktuell, 0 Åbersprungen ==========
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/CMakeTmp
+
+Run Build Command:C:\PROGRA~2\MICROS~3.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec3252926040
+
+Microsoft (R) Visual Studio Version 10.0.30319.1.
+Copyright (C) Microsoft Corp. Alle Rechte vorbehalten.
+1>------ Erstellen gestartet: Projekt: cmTryCompileExec3252926040, Konfiguration: Debug x64 ------
+1>Der Buildvorgang wurde am 2012-06-27 20:09:29 Uhr gestartet.
+1>InitializeBuildStatus:
+1>  "cmTryCompileExec3252926040.dir\Debug\cmTryCompileExec3252926040.unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
+1>ClCompile:
+1>  Microsoft (R) C/C++ Optimizing Compiler Version 16.00.30319.01 for x64
+1>  Copyright (C) Microsoft Corporation.  All rights reserved.
+1>  
+1>  cl /c /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec3252926040.dir\Debug\\" /Fd"E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3252926040.pdb" /Gd /TP /errorReport:prompt "C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXCompilerABI.cpp"  /Zm1000 
+1>  
+1>  CMakeCXXCompilerABI.cpp
+1>Link:
+1>  cmTryCompileExec3252926040.vcxproj -> E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3252926040.exe
+1>LinkEmbedManifest:
+1>  cmTryCompileExec3252926040.vcxproj -> E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3252926040.exe
+1>FinalizeBuildStatus:
+1>  Die Datei "cmTryCompileExec3252926040.dir\Debug\cmTryCompileExec3252926040.unsuccessfulbuild" wird gelîscht.
+1>  Aktualisieren des Timestamps von "cmTryCompileExec3252926040.dir\Debug\cmTryCompileExec3252926040.lastbuildstate".
+1>
+1>Das Erstellen war erfolgreich.
+1>
+1>Verstrichene Zeit 00:00:01.36
+========== Erstellen: 1 erfolgreich, Fehler bei 0, 0 aktuell, 0 Åbersprungen ==========
+
+

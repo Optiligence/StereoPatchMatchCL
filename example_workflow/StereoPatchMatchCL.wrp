@@ -1,0 +1,20 @@
+filereader1.type		FileReader
+filereader1.editorinfo		-1143.2 -589.82
+filereader1.fileList		./view0.png;./view1.png
+filereader1.templatetype		int
+stereopatchmatchcl1.type		StereoPatchMatchCL
+stereopatchmatchcl1.editorinfo		-980.731 -614.272
+stereopatchmatchcl1.templatetype		int
+stereopatchmatchcl1.imgsrc		filereader1.out
+filereader1.out		stereopatchmatchcl1.imgsrc
+channelconverter1.type		ChannelConverter
+channelconverter1.editorinfo		-1129.42 -471.592
+channelconverter1.templatetype		int
+channelconverter1.input		stereopatchmatchcl1.img
+stereopatchmatchcl1.img		channelconverter1.input
+argosdisplay1.type		ArgosDisplay
+argosdisplay1.editorinfo		-915.65 -486.111
+argosdisplay1.templatetype		int
+argosdisplay1.cimgin		channelconverter1.output
+channelconverter1.output		argosdisplay1.cimgin
+stereopatchmatchcl1.cl_Devices		1

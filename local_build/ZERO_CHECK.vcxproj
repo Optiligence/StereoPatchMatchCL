@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{7F439E41-BDBA-4514-845E-D23E3CA04217}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>ZERO_CHECK</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>E:/_Own-Zone/_Studium/Praktikum/charon-suite64/include;E:/_Own-Zone/_Studium/Praktikum/charon-suite64/include/charon-core;C:/Program Files (x86)/AMD APP/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>E:/_Own-Zone/_Studium/Praktikum/charon-suite64/include;E:/_Own-Zone/_Studium/Praktikum/charon-suite64/include/charon-core;C:/Program Files (x86)/AMD APP/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>E:/_Own-Zone/_Studium/Praktikum/charon-suite64/include;E:/_Own-Zone/_Studium/Praktikum/charon-suite64/include/charon-core;C:/Program Files (x86)/AMD APP/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>E:/_Own-Zone/_Studium/Praktikum/charon-suite64/include;E:/_Own-Zone/_Studium/Praktikum/charon-suite64/include/charon-core;C:/Program Files (x86)/AMD APP/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="CMakeFiles\generate.stamp.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -HE:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL -BE:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "$(SolutionPath)"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/generate.stamp.rule;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindJPEG.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPNG.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindTIFF.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindZLIB.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\CImgConfig.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\CMakeLists.txt;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\FindOpenCL.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\InitFlags.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeCCompiler.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeCPlatform.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeCXXCompiler.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeCXXPlatform.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeRCCompiler.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeSystem.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-core-config-version.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-core-config.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-meta-export-debug.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-meta-export-release.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-meta-export.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-utils-config-version.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-utils-config.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -HE:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL -BE:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "$(SolutionPath)"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/generate.stamp.rule;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindJPEG.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPNG.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindTIFF.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindZLIB.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\CImgConfig.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\CMakeLists.txt;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\FindOpenCL.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\InitFlags.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeCCompiler.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeCPlatform.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeCXXCompiler.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeCXXPlatform.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeRCCompiler.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeSystem.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-core-config-version.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-core-config.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-meta-export-debug.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-meta-export-release.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-meta-export.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-utils-config-version.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-utils-config.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -HE:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL -BE:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "$(SolutionPath)"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/generate.stamp.rule;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindJPEG.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPNG.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindTIFF.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindZLIB.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\CImgConfig.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\CMakeLists.txt;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\FindOpenCL.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\InitFlags.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeCCompiler.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeCPlatform.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeCXXCompiler.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeCXXPlatform.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeRCCompiler.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeSystem.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-core-config-version.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-core-config.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-meta-export-debug.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-meta-export-release.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-meta-export.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-utils-config-version.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-utils-config.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -HE:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL -BE:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "$(SolutionPath)"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/generate.stamp.rule;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindJPEG.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPNG.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindTIFF.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindZLIB.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\CImgConfig.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\CMakeLists.txt;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\FindOpenCL.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\InitFlags.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeCCompiler.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeCPlatform.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeCXXCompiler.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeCXXPlatform.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeRCCompiler.cmake;E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\CMakeSystem.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-core-config-version.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-core-config.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-meta-export-debug.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-meta-export-release.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-meta-export.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-utils-config-version.cmake;E:\_Own-Zone\_Studium\Praktikum\charon-suite64\cmake\charon-utils-config.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\generate.stamp</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="CMakeFiles\ZERO_CHECK.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/ZERO_CHECK.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\ZERO_CHECK</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/ZERO_CHECK.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\ZERO_CHECK</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/ZERO_CHECK.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\ZERO_CHECK</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/CMakeFiles/ZERO_CHECK.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\ZERO_CHECK</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\local_build\CMakeFiles\ZERO_CHECK" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
