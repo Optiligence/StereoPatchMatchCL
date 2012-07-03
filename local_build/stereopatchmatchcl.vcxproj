@@ -316,8 +316,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ClInclude Include="E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\StereoPatchMatchCL.h" />
     <ClInclude Include="E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\StereoPatchMatchCL.hxx" />
+    <ClInclude Include="E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\kernel.h" />
     <ClCompile Include="E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\StereoPatchMatchCL.cpp"  />
-    <None Include="E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\kernel.cl" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/local_build/ZERO_CHECK.vcxproj">

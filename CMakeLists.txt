@@ -39,7 +39,7 @@ ADD_LIBRARY(stereopatchmatchcl SHARED
 	StereoPatchMatchCL.cpp
 	StereoPatchMatchCL.h
 	StereoPatchMatchCL.hxx
-	kernel.cl
+	kernel.h
 )
 TARGET_LINK_LIBRARIES(stereopatchmatchcl
 	charon-core

@@ -3,18 +3,33 @@ filereader1.editorinfo		-1143.2 -589.82
 filereader1.fileList		./view0.png;./view1.png
 filereader1.templatetype		int
 stereopatchmatchcl1.type		StereoPatchMatchCL
-stereopatchmatchcl1.editorinfo		-980.731 -614.272
+stereopatchmatchcl1.editorinfo		-956.861 -600.905
 stereopatchmatchcl1.templatetype		int
 stereopatchmatchcl1.imgsrc		filereader1.out
 filereader1.out		stereopatchmatchcl1.imgsrc
 channelconverter1.type		ChannelConverter
-channelconverter1.editorinfo		-1129.42 -471.592
+channelconverter1.editorinfo		-954.525 -480.864
 channelconverter1.templatetype		int
 channelconverter1.input		stereopatchmatchcl1.img
 stereopatchmatchcl1.img		channelconverter1.input
 argosdisplay1.type		ArgosDisplay
-argosdisplay1.editorinfo		-915.65 -486.111
+argosdisplay1.editorinfo		-731.389 -618.392
 argosdisplay1.templatetype		int
-argosdisplay1.cimgin		channelconverter1.output
-channelconverter1.output		argosdisplay1.cimgin
-stereopatchmatchcl1.cl_Devices		1
+argosdisplay1.cimgin		
+channelconverter1.output		cimg2vigramultiarray1.in
+stereopatchmatchcl1.cl_Devices		0
+frameselect1.type		FrameSelect
+frameselect1.editorinfo		-724.492 -401.344
+frameselect1.templatetype		int
+cimg2vigramultiarray1.type		CImg2VigraMultiArray
+cimg2vigramultiarray1.editorinfo		-961.908 -356.123
+cimg2vigramultiarray1.templatetype		int
+cimg2vigramultiarray1.in		channelconverter1.output
+frameselect1.in		cimg2vigramultiarray1.out
+cimg2vigramultiarray1.out		frameselect1.in
+argosdisplay1.vigrain		frameselect1.out
+frameselect1.out		argosdisplay1.vigrain
+argosdisplay1.dockwidgets		frameselect1.widget
+frameselect1.widget		argosdisplay1.dockwidgets
+frameselect1.cropV		false
+stereopatchmatchcl1.cl_Platform		-1

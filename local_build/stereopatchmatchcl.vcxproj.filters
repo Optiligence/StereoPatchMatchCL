@@ -9,6 +9,9 @@
     <ClInclude Include="E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\StereoPatchMatchCL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\kernel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
@@ -29,6 +32,5 @@
     <None Include="E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\StereoPatchMatchCL.hxx">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="E:\_Own-Zone\_Studium\Praktikum\StereoPatchMatchCL\kernel.cl" />
   </ItemGroup>
 </Project>

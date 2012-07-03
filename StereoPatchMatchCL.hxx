@@ -57,6 +57,19 @@ StereoPatchMatchCL<T>::StereoPatchMatchCL(const std::string& name) :
 		"int");
 
 }
+template <typename T>
+inline std::string StereoPatchMatchCL<T>::kernelDecl() {
+	std::wcout << "only float and int templates are applicable – terminating" << std::endl;
+	exit(1);
+}
+template<>
+inline std::string StereoPatchMatchCL<float>::kernelDecl() {
+	return "float";
+}
+template<>
+inline std::string StereoPatchMatchCL<int>::kernelDecl() {
+	return "int";
+}
 void checkErr(cl_int err, const wchar_t* name)
 {
 	if (err != CL_SUCCESS) {
@@ -68,17 +81,91 @@ void checkErr(cl_int err, const wchar_t* name)
 	} else std::wcout << name << std::endl;
 }
 template <typename T>
-inline std::string StereoPatchMatchCL<T>::kernelDecl() {
-	std::wcout << "only float and int templates are applicable – terminating" << std::endl;
-	exit(1);
-}
-template<>
-inline std::string StereoPatchMatchCL<float>::kernelDecl() {
-	return "__kernel void run(__global const float *in, __global const float *in2, __global float *out)";
-}
-template<>
-inline std::string StereoPatchMatchCL<int>::kernelDecl() {
-	return "__kernel void run(__global const int *in, __global const int *in2, __global int *out)";
+void kernelTest(const T *in, const T *in2, T *out, int *xNNF, int *yNNF, const int *offset, const int xmax, const int ymax, const int patchsize, int gid) {
+	int xi, yi, patchcenter, patchhalf, dif, bestDif, pixelCount;
+	size_t tid = gid * patchsize;
+	xi = patchsize * (tid % xmax / patchsize);
+	yi = tid / xmax * patchsize;
+	pixelCount = xmax*ymax;
+	patchhalf = patchsize/2;
+	if(patchsize > xmax-1-xi || patchsize > ymax-1-yi)
+		return;
+	{
+		int subpixel = xi + yi * xmax;
+		patchcenter = subpixel + patchhalf + patchhalf * xmax;
+		int subpixel2 = subpixel + (xNNF[patchcenter]) + (yNNF[patchcenter]) * xmax;//x und y verschiebung
+		//Patch-Distance
+		dif=0;
+		for(int row = patchsize; row > 0; --row) {
+			for(int i = patchsize; i > 0; --i, ++subpixel, ++subpixel2) {
+				dif += abs(in[subpixel] - in2[subpixel2]);//R
+				int blue_subpixel = subpixel + pixelCount, blue_subpixel2 = subpixel2 + pixelCount;
+				dif += abs(in[blue_subpixel] - in2[blue_subpixel2]);//G
+				dif += abs(in[blue_subpixel + pixelCount] - in2[blue_subpixel2 + pixelCount]);//B
+			}
+			//plus one row, minus patch width
+			subpixel += xmax - patchsize;
+			subpixel2 += xmax - patchsize;
+		}
+	}
+	bestDif = dif;//inital difference
+	//eins nach rechts
+	++xi;
+	++patchcenter;
+	{
+		int subpixel = xi + yi * xmax;
+		int subpixel2 = subpixel + (xNNF[patchcenter]) + (yNNF[patchcenter]) * xmax;//x und y verschiebung
+		//Patch-Distance
+		dif=0;
+		for(int row = patchsize; row > 0; --row) {
+			for(int i = patchsize; i > 0; --i, ++subpixel, ++subpixel2) {
+				dif += abs(in[subpixel] - in2[subpixel2]);//R
+				int blue_subpixel = subpixel + pixelCount, blue_subpixel2 = subpixel2 + pixelCount;
+				dif += abs(in[blue_subpixel] - in2[blue_subpixel2]);//G
+				dif += abs(in[blue_subpixel + pixelCount] - in2[blue_subpixel2 + pixelCount]);//B
+			}
+			//plus one row, minus patch width
+			subpixel += xmax - patchsize;
+			subpixel2 += xmax - patchsize;
+		}
+	}
+	if(bestDif > dif) {//better patch match – switch patches
+		bestDif = dif;
+		int oriPatch = patchcenter - 1;
+		xNNF[oriPatch] = xNNF[patchcenter];
+		yNNF[oriPatch] = yNNF[patchcenter];
+	}
+	out[patchcenter] = 0; out[patchcenter + xmax*ymax] = 255; out[patchcenter + 2*xmax*ymax] = 0;//rechts
+	--xi;//original x
+	--patchcenter;//original patch
+	out[patchcenter] = 255; out[patchcenter + xmax*ymax] = 0; out[patchcenter + 2*xmax*ymax] = 0;//original
+	//eins nach unten
+	++yi;
+	patchcenter += xmax;
+	out[patchcenter] = 0; out[patchcenter + xmax*ymax] = 0; out[patchcenter + 2*xmax*ymax] = 255;//unten
+	{
+		int subpixel = xi + yi * xmax;
+		int subpixel2 = subpixel + (xNNF[patchcenter]) + (yNNF[patchcenter]) * xmax;//x und y verschiebung
+		//Patch-Distance
+		dif=0;
+		for(int row = patchsize; row > 0; --row) {
+			for(int i = patchsize; i > 0; --i, ++subpixel, ++subpixel2) {
+				dif += abs(in[subpixel] - in2[subpixel2]);//R
+				int blue_subpixel = subpixel + pixelCount, blue_subpixel2 = subpixel2 + pixelCount;
+				dif += abs(in[blue_subpixel] - in2[blue_subpixel2]);//G
+				dif += abs(in[blue_subpixel + pixelCount] - in2[blue_subpixel2 + pixelCount]);//B
+			}
+			//plus one row, minus patch width
+			subpixel += xmax - patchsize;
+			subpixel2 += xmax - patchsize;
+		}
+	}
+	if(bestDif > dif) {//better patch match – switch patches
+		bestDif = dif;
+		int oriPatch = patchcenter - xmax;
+		xNNF[oriPatch] = xNNF[patchcenter];
+		yNNF[oriPatch] = yNNF[patchcenter];
+	}
 }
 template <typename T>
 void StereoPatchMatchCL<T>::execute() {
@@ -86,10 +173,21 @@ void StereoPatchMatchCL<T>::execute() {
 	ParameteredObject::execute();
 
 	// your code goes here :-)
-	auto &image = (imgOut().push_back(this->imgSrc()[0]))[0];//copy input image to output
-	cimg_forXYZC(image, x, y, z, c)//noise
-		image(x, y, z, c) = (T)(cimg_library::cimg::rand() * 255);
-	
+	int patchsize=5, offset;
+	auto &image = (imgOut().push_back(imgSrc()[0]))[0];//copy input image to output
+	imgOut().push_back(imgSrc()[1]);
+	imgOut().push_back(imgSrc()[0]);
+	cimg_library::CImg<int> xNNF(image.width(), image.height());//x deviation
+	cimg_library::CImg<int> yNNF(xNNF);//y deviation
+	cimg_forXYZC(image, x, y, z, c) {//noise
+		image(x, y, z, c) = (T)(255);
+		xNNF(x, y) = (int)(cimg_library::cimg::rand() * (image.width()-1-patchsize) - x + patchsize/2+1);
+		yNNF(x, y) = (int)(cimg_library::cimg::rand() * (image.height()-1-patchsize) - y + patchsize/2+1);
+	}
+	//backup original
+	imgOut().push_back(xNNF);
+	imgOut().push_back(yNNF);
+
 	std::wostringstream sss;
 	std::ostringstream ss;
 	cl_int err;
@@ -99,23 +197,36 @@ void StereoPatchMatchCL<T>::execute() {
 	//checkErr(err, L"Conext::Context()");
 
 	int width=image.width(), height=image.height();
-	int buffersize=4*3*width*height;//4(Integer) Bytes pro SubPixel
+	int buffersize=width*height;//4(Integer) Bytes pro SubPixel
 
-	cl::Buffer inCL(context, CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, buffersize, const_cast<T*>(imgSrc()[0].data()), &err); //const cast – read only flag
+	cl::Buffer inCL(context, CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, 3*sizeof(T)*buffersize, const_cast<T*>(imgSrc()[0].data()), &err); //const cast – read only flag
 	checkErr(err, L"Buffer::InputBuffer()");
-	cl::Buffer inCL2(context, CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, buffersize, const_cast<T*>(imgSrc()[1].data()), &err); //const cast – read only flag
+	cl::Buffer inCL2(context, CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, 3*sizeof(T)*buffersize, const_cast<T*>(imgSrc()[1].data()), &err); //const cast – read only flag
 	checkErr(err, L"Buffer::InputBuffer2()");
-	cl::Buffer outCL(context, CL_MEM_READ_WRITE | CL_MEM_USE_HOST_PTR, buffersize, image.data(), &err);
+	cl::Buffer outCL(context, CL_MEM_READ_WRITE | CL_MEM_USE_HOST_PTR, 3*sizeof(T)*buffersize, image.data(), &err);
 	checkErr(err, L"Buffer::OutputBuffer()");
+	cl::Buffer xCL(context, CL_MEM_READ_WRITE | CL_MEM_USE_HOST_PTR, sizeof(T)*buffersize, xNNF.data(), &err);
+	checkErr(err, L"Buffer::xBuffer()");
+	cl::Buffer yCL(context, CL_MEM_READ_WRITE | CL_MEM_USE_HOST_PTR, sizeof(T)*buffersize, yNNF.data(), &err);
+	checkErr(err, L"Buffer::yBuffer()");
+	cl::Buffer offsetCL(context, CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, sizeof(int), &offset, &err);
+	checkErr(err, L"Buffer::offset()");
 
 	//Kernel
 	ss.str(std::string());//clear string
 	//add image size constants to kernel source
 	ss << "__constant int xmax = " << width << ';' << std::endl;
 	ss << "__constant int ymax = " << height << ';' << std::endl;
-	ss << kernelDecl() << std::endl;//adjust kernel arguments based on template type
-	std::ifstream file(L"E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/kernel.cl");//load kernel code from disk, charon searches where your source code resides and in its core directory
-	checkErr(file.is_open() ? CL_SUCCESS:-1, L"load ./kernel.cl");
+	ss << "__constant int patchsize = " << patchsize << ';' << std::endl;
+	ss << "__kernel void run(__global const " << kernelDecl() << " *in"
+		<< ", __global const " << kernelDecl() << " *in2"
+		<< ", __global " << kernelDecl() << " *out"
+		<< ", __global int *xNNF"
+		<< ", __global int *yNNF"
+		<< ", __global const int *offset)"
+		<< std::endl;//adjust kernel arguments based on template type
+	std::ifstream file(L"E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/kernel.h");//load kernel code from disk, charon searches where your source code resides and in its core directory
+	checkErr(file.is_open() ? CL_SUCCESS:-1, L"load ./kernel.h");
 	//std::string prog(std::istreambuf_iterator<wchar_t>(file), (std::istreambuf_iterator<wchar_t>()));//parse file into string
 	ss << file.rdbuf();//add remaining source
 	sout << "#Source#\n" << ss.str() << std::endl;//print source
@@ -151,7 +262,13 @@ void StereoPatchMatchCL<T>::execute() {
 	err = kernel.setArg(1, inCL2);
 	checkErr(err, L"Kernel::setArg(1)");
 	err = kernel.setArg(2, outCL);
+	checkErr(err, L"Kernel::setArg(2)");
+	err = kernel.setArg(3, xCL);
 	checkErr(err, L"Kernel::setArg(3)");
+	err = kernel.setArg(4, yCL);
+	checkErr(err, L"Kernel::setArg(4)");
+	err = kernel.setArg(5, offsetCL);
+	checkErr(err, L"Kernel::setArg(5)");
 
 	clock_t start, intermediate, end;//time
 	//add kernel to device execution queue
@@ -159,20 +276,36 @@ void StereoPatchMatchCL<T>::execute() {
 	checkErr(err, L"CommandQueue::CommandQueue()");
 	cl::Event event;
 	start = clock();
+//#define X
+#ifdef X
+	for(int i=0; i<width*height/(patchsize*patchsize); i++)
+		kernelTest(const_cast<T*>(imgSrc()[0].data()), const_cast<T*>(imgSrc()[1].data()), image.data(), xNNF.data(), yNNF.data(), &offset, width, height, patchsize, i);
+#endif
+#ifndef X
 	err = queue.enqueueNDRangeKernel(kernel, cl::NullRange, 
-		cl::NDRange(width*height), //global range
-		cl::NDRange(1, 1), //local range
-		nullptr, 
-		&event);//object to wait for
+			cl::NDRange(width*height/(patchsize*patchsize)), //global range
+			cl::NDRange(1, 1), //local range
+			nullptr, 
+			&event);//object to wait for
 	checkErr(err, L"ComamndQueue::enqueueNDRangeKernel()");
 	event.wait();//return when execution is finished
 	intermediate = clock();//pure execution time
 	err = queue.enqueueReadBuffer(outCL, CL_TRUE, 0, buffersize, image.data());//copy buffer back to main memory
 	checkErr(err, L"ComamndQueue::enqueueReadBuffer()");
-	
+	err = queue.enqueueReadBuffer(xCL, CL_TRUE, 0, buffersize, xNNF.data());//copy buffer back to main memory
+	checkErr(err, L"ComamndQueue::enqueueReadBuffer2()");
+	err = queue.enqueueReadBuffer(yCL, CL_TRUE, 0, buffersize, yNNF.data());//copy buffer back to main memory
+	checkErr(err, L"ComamndQueue::enqueueReadBuffer3()");
+#endif
+	intermediate = clock();//TODO remove
 	end = clock();
 	std::wcout << L"Time: " << ((intermediate-start)/(double)CLOCKS_PER_SEC) << L"s";
 	std::wcout << L" + " << ((end-intermediate)/(double)CLOCKS_PER_SEC) << L"s" << std::endl;//buffer copy
+	//changed NNFs
+	imgOut().push_back(xNNF);
+	imgOut().push_back(yNNF);
+	cimg_forXYZC(image, x, y, z, c)//reconstruct image
+		image(x, y, z, c) = (T)imgSrc()[0](x+xNNF(x, y), y+yNNF(x, y));
 }
 
 #endif /* _STEREOPATCHMATCHCL_HXX_ */

@@ -67,6 +67,7 @@ public:
 
 	/// Update object.
 	virtual void execute();
+	void work();
 	std::string kernelDecl();
 };
 
