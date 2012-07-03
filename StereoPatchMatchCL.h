@@ -40,6 +40,7 @@
 #include <charon-core/ParameteredObject.h>
 #include <charon-utils/CImg.h>
 #include <iostream>
+#include <string>
 #define __NO_STD_VECTOR // Use cl::vector instead of STL version
 #include <CL\cl.hpp>
 

@@ -82,89 +82,129 @@ void checkErr(cl_int err, const wchar_t* name)
 }
 template <typename T>
 void kernelTest(const T *in, const T *in2, T *out, int *xNNF, int *yNNF, const int *offset, const int xmax, const int ymax, const int patchsize, int gid) {
-	int xi, yi, patchcenter, patchhalf, dif, bestDif, pixelCount;
 	size_t tid = gid * patchsize;
-	xi = patchsize * (tid % xmax / patchsize);
-	yi = tid / xmax * patchsize;
-	pixelCount = xmax*ymax;
-	patchhalf = patchsize/2;
-	if(patchsize > xmax-1-xi || patchsize > ymax-1-yi)
+	int xi = patchsize * (tid % xmax / patchsize);
+	int yi = tid / xmax * patchsize;
+	if(patchsize > xmax-1-xi || patchsize > ymax-1-yi) {
+		sout << "# Bereichsüberschreitung" << std::endl;
 		return;
-	{
-		int subpixel = xi + yi * xmax;
-		patchcenter = subpixel + patchhalf + patchhalf * xmax;
-		int subpixel2 = subpixel + (xNNF[patchcenter]) + (yNNF[patchcenter]) * xmax;//x und y verschiebung
-		//Patch-Distance
-		dif=0;
-		for(int row = patchsize; row > 0; --row) {
-			for(int i = patchsize; i > 0; --i, ++subpixel, ++subpixel2) {
-				dif += abs(in[subpixel] - in2[subpixel2]);//R
-				int blue_subpixel = subpixel + pixelCount, blue_subpixel2 = subpixel2 + pixelCount;
-				dif += abs(in[blue_subpixel] - in2[blue_subpixel2]);//G
-				dif += abs(in[blue_subpixel + pixelCount] - in2[blue_subpixel2 + pixelCount]);//B
-			}
-			//plus one row, minus patch width
-			subpixel += xmax - patchsize;
-			subpixel2 += xmax - patchsize;
-		}
 	}
-	bestDif = dif;//inital difference
-	//eins nach rechts
-	++xi;
+	int pixelCount = xmax*ymax;
+	int patchhalf = patchsize/2;
+	int patchcenter = xi + yi * xmax + patchhalf + patchhalf * xmax;
+	// = {xi + yi * xmax, xi + yi * xmax + pixelCount, xi + yi * xmax + pixelCount};
+	int subpixel[3], subpixel0[3], subpixelR[3], subpixelB[3];
+	subpixel[0] = xi + yi * xmax;
+	subpixel[1] = subpixel[0] + pixelCount;
+	subpixel[2] = subpixel[1] + pixelCount;
+	int deviation = (xNNF[patchcenter]) + (yNNF[patchcenter]) * xmax;
+	subpixel0[0] = subpixel[0] + deviation;
+	subpixel0[1] = subpixel[1] + deviation;
+	subpixel0[2] = subpixel[2] + deviation;
 	++patchcenter;
-	{
-		int subpixel = xi + yi * xmax;
-		int subpixel2 = subpixel + (xNNF[patchcenter]) + (yNNF[patchcenter]) * xmax;//x und y verschiebung
-		//Patch-Distance
-		dif=0;
-		for(int row = patchsize; row > 0; --row) {
-			for(int i = patchsize; i > 0; --i, ++subpixel, ++subpixel2) {
-				dif += abs(in[subpixel] - in2[subpixel2]);//R
-				int blue_subpixel = subpixel + pixelCount, blue_subpixel2 = subpixel2 + pixelCount;
-				dif += abs(in[blue_subpixel] - in2[blue_subpixel2]);//G
-				dif += abs(in[blue_subpixel + pixelCount] - in2[blue_subpixel2 + pixelCount]);//B
-			}
-			//plus one row, minus patch width
-			subpixel += xmax - patchsize;
-			subpixel2 += xmax - patchsize;
-		}
-	}
-	if(bestDif > dif) {//better patch match – switch patches
-		bestDif = dif;
-		int oriPatch = patchcenter - 1;
-		xNNF[oriPatch] = xNNF[patchcenter];
-		yNNF[oriPatch] = yNNF[patchcenter];
-	}
+	deviation = (xNNF[patchcenter]) + (yNNF[patchcenter]) * xmax;
+	subpixelR[0] = subpixel[0] + 1 + deviation;
+	subpixelR[1] = subpixel[0] + pixelCount;
+	subpixelR[2] = subpixel[1] + pixelCount;
 	out[patchcenter] = 0; out[patchcenter + xmax*ymax] = 255; out[patchcenter + 2*xmax*ymax] = 0;//rechts
-	--xi;//original x
-	--patchcenter;//original patch
+	--patchcenter;
 	out[patchcenter] = 255; out[patchcenter + xmax*ymax] = 0; out[patchcenter + 2*xmax*ymax] = 0;//original
-	//eins nach unten
-	++yi;
 	patchcenter += xmax;
 	out[patchcenter] = 0; out[patchcenter + xmax*ymax] = 0; out[patchcenter + 2*xmax*ymax] = 255;//unten
-	{
-		int subpixel = xi + yi * xmax;
-		int subpixel2 = subpixel + (xNNF[patchcenter]) + (yNNF[patchcenter]) * xmax;//x und y verschiebung
-		//Patch-Distance
-		dif=0;
-		for(int row = patchsize; row > 0; --row) {
-			for(int i = patchsize; i > 0; --i, ++subpixel, ++subpixel2) {
-				dif += abs(in[subpixel] - in2[subpixel2]);//R
-				int blue_subpixel = subpixel + pixelCount, blue_subpixel2 = subpixel2 + pixelCount;
-				dif += abs(in[blue_subpixel] - in2[blue_subpixel2]);//G
-				dif += abs(in[blue_subpixel + pixelCount] - in2[blue_subpixel2 + pixelCount]);//B
-			}
-			//plus one row, minus patch width
-			subpixel += xmax - patchsize;
-			subpixel2 += xmax - patchsize;
+	deviation = (xNNF[patchcenter]) + (yNNF[patchcenter]) * xmax;
+	subpixelB[0] = subpixel[0] + xmax + deviation;
+	subpixelB[1] = subpixel[0] + pixelCount;
+	subpixelB[2] = subpixel[1] + pixelCount;
+
+	//Patch-Distance
+	T dif0 = 0, difR = 0, difB = 0;
+	dif0 += abs(in[subpixel[0]] - in2[subpixel0[0]]);
+	dif0 += abs(in[subpixel[1]] - in2[subpixel0[1]]);
+	dif0 += abs(in[subpixel[2]] - in2[subpixel0[2]]);
+	++subpixel[0]; ++subpixel[1]; ++subpixel[2];
+	++subpixel0[0]; ++subpixel0[1]; ++subpixel0[2];
+	for(int i = patchsize - 1; i > 0; --i
+			, ++subpixel[0], ++subpixel[1], ++subpixel[2]
+			, ++subpixel0[0], ++subpixel0[1], ++subpixel0[2]
+			, ++subpixelR[0], ++subpixelR[1], ++subpixelR[2]) {
+		dif0 += abs(in[subpixel[0]] - in2[subpixel0[0]]);
+		dif0 += abs(in[subpixel[1]] - in2[subpixel0[1]]);
+		dif0 += abs(in[subpixel[2]] - in2[subpixel0[2]]);
+		difR += abs(in[subpixel[0]] - in2[subpixelR[0]]);
+		difR += abs(in[subpixel[1]] - in2[subpixelR[1]]);
+		difR += abs(in[subpixel[2]] - in2[subpixelR[2]]);
+	}
+	++subpixel[0]; ++subpixel[1]; ++subpixel[2];
+	++subpixelR[0]; ++subpixelR[1]; ++subpixelR[2];
+	difR += abs(in[subpixel[0]] - in2[subpixelR[0]]);
+	difR += abs(in[subpixel[1]] - in2[subpixelR[1]]);
+	difR += abs(in[subpixel[2]] - in2[subpixelR[2]]);
+	//plus one row, minus patch width
+	for(int help = xmax - patchsize, sp = 2; sp >= 0; --sp) {//kein *B
+		subpixel[sp] += help - 1;
+		subpixel0[sp] += help;
+		subpixelR[sp] += help;
+	}
+	for(int row = patchsize - 1; row > 0; --row) {
+		dif0 += abs(in[subpixel[0]] - in2[subpixel0[0]]);
+		dif0 += abs(in[subpixel[1]] - in2[subpixel0[1]]);
+		dif0 += abs(in[subpixel[2]] - in2[subpixel0[2]]);
+		difB += abs(in[subpixel[0]] - in2[subpixelB[0]]);
+		difB += abs(in[subpixel[1]] - in2[subpixelB[1]]);
+		difB += abs(in[subpixel[2]] - in2[subpixelB[2]]);
+		++subpixel[0]; ++subpixel[1]; ++subpixel[2];
+		++subpixel0[0]; ++subpixel0[1]; ++subpixel0[2];
+		++subpixelB[0]; ++subpixelB[1]; ++subpixelB[2];
+		for(int i = patchsize - 1; i > 0; --i
+				, ++subpixel[0], ++subpixel[1], ++subpixel[2]
+				, ++subpixel0[0], ++subpixel0[1], ++subpixel0[2]
+				, ++subpixelR[0], ++subpixelR[1], ++subpixelR[2]
+				, ++subpixelB[0], ++subpixelB[1], ++subpixelB[2]) {
+			dif0 += abs(in[subpixel[0]] - in2[subpixel0[0]]);
+			dif0 += abs(in[subpixel[1]] - in2[subpixel0[1]]);
+			dif0 += abs(in[subpixel[2]] - in2[subpixel0[2]]);
+			difR += abs(in[subpixel[0]] - in2[subpixelR[0]]);
+			difR += abs(in[subpixel[1]] - in2[subpixelR[1]]);
+			difR += abs(in[subpixel[2]] - in2[subpixelR[2]]);
+			difB += abs(in[subpixel[0]] - in2[subpixelB[0]]);
+			difB += abs(in[subpixel[1]] - in2[subpixelB[1]]);
+			difB += abs(in[subpixel[2]] - in2[subpixelB[2]]);
+		}
+		++subpixel[0]; ++subpixel[1]; ++subpixel[2];
+		++subpixelR[0]; ++subpixelR[1]; ++subpixelR[2];
+		difR += abs(in[subpixel[0]] - in2[subpixelR[0]]);
+		difR += abs(in[subpixel[1]] - in2[subpixelR[1]]);
+		difR += abs(in[subpixel[2]] - in2[subpixelR[2]]);
+		//plus one row, minus patch width
+		for(int help = xmax - patchsize, sp = 2; sp >= 0; --sp) {
+			subpixel[sp] += help - 1;
+			subpixel0[sp] += help;
+			subpixelR[sp] += help;
+			subpixelB[sp] += help;
 		}
 	}
-	if(bestDif > dif) {//better patch match – switch patches
-		bestDif = dif;
-		int oriPatch = patchcenter - xmax;
-		xNNF[oriPatch] = xNNF[patchcenter];
-		yNNF[oriPatch] = yNNF[patchcenter];
+	for(int help = xmax - patchsize, sp = 2; sp >= 0; --sp) {
+		subpixel[sp] += help - 1;
+		subpixelB[sp] += help;
+	}
+	for(int i = patchsize - 1; i > 0; --i
+			, ++subpixel[0], ++subpixel[1], ++subpixel[2]
+			, ++subpixelB[0], ++subpixelB[1], ++subpixelB[2]) {
+		difB += abs(in[subpixel[0]] - in2[subpixelB[0]]);
+		difB += abs(in[subpixel[1]] - in2[subpixelB[1]]);
+		difB += abs(in[subpixel[2]] - in2[subpixelB[2]]);
+	}
+	if(dif0 > difR && difR > difB) {
+		int patchcenter = xi + yi * xmax + patchhalf + patchhalf * xmax;
+		int help = patchcenter + 1;
+		xNNF[patchcenter] = xNNF[help];
+		yNNF[patchcenter] = yNNF[help];
+	}
+	if(dif0 > difB && difB > difR) {
+		int patchcenter = xi + yi * xmax + patchhalf + patchhalf * xmax;
+		int help = patchcenter + xmax;
+		xNNF[patchcenter] = xNNF[help];
+		yNNF[patchcenter] = yNNF[help];
 	}
 }
 template <typename T>
@@ -218,19 +258,27 @@ void StereoPatchMatchCL<T>::execute() {
 	ss << "__constant int xmax = " << width << ';' << std::endl;
 	ss << "__constant int ymax = " << height << ';' << std::endl;
 	ss << "__constant int patchsize = " << patchsize << ';' << std::endl;
+	/*
 	ss << "__kernel void run(__global const " << kernelDecl() << " *in"
 		<< ", __global const " << kernelDecl() << " *in2"
 		<< ", __global " << kernelDecl() << " *out"
 		<< ", __global int *xNNF"
 		<< ", __global int *yNNF"
 		<< ", __global const int *offset)"
-		<< std::endl;//adjust kernel arguments based on template type
+		<< std::endl;
+	*/
 	std::ifstream file(L"E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/kernel.h");//load kernel code from disk, charon searches where your source code resides and in its core directory
 	checkErr(file.is_open() ? CL_SUCCESS:-1, L"load ./kernel.h");
 	//std::string prog(std::istreambuf_iterator<wchar_t>(file), (std::istreambuf_iterator<wchar_t>()));//parse file into string
 	ss << file.rdbuf();//add remaining source
-	sout << "#Source#\n" << ss.str() << std::endl;//print source
-	cl::Program program(context, ss.str());//apply source to current context
+	std::string code = ss.str();
+	while(true) {
+		auto pos = code.find("###T###");
+		if(pos == std::string::npos) break;
+		code.replace(pos, 7, kernelDecl());//adjust kernel arguments based on template type
+	}
+	sout << "#Source#\n" << code << std::endl;//print source
+	cl::Program program(context, code);//apply source to current context
 
 	//get devices from context of platform
 	cl::vector<cl::Device> devices = context.getInfo<CL_CONTEXT_DEVICES>();
@@ -305,7 +353,7 @@ void StereoPatchMatchCL<T>::execute() {
 	imgOut().push_back(xNNF);
 	imgOut().push_back(yNNF);
 	cimg_forXYZC(image, x, y, z, c)//reconstruct image
-		image(x, y, z, c) = (T)imgSrc()[0](x+xNNF(x, y), y+yNNF(x, y));
+		image(x, y, z, c) = (T)imgSrc()[0](x+xNNF(x, y), y+yNNF(x, y), z, c);
 }
 
 #endif /* _STEREOPATCHMATCHCL_HXX_ */
