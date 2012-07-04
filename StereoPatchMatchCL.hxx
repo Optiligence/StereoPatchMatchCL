@@ -81,40 +81,106 @@ void checkErr(cl_int err, const wchar_t* name)
 	} else std::wcout << name << std::endl;
 }
 template <typename T>
-void kernelTest(const T *in, const T *in2, T *out, int *xNNF, int *yNNF, const int *offset, const int xmax, const int ymax, const int patchsize, int gid) {
+void kernelRand(const T *in, const T *in2, T *out, int *xNNF, int *yNNF, const int *xoffset, const int *yoffset, const int xmax, const int ymax, const int patchsize, int gid) {
 	size_t tid = gid * patchsize;
-	int xi = patchsize * (tid % xmax / patchsize);
-	int yi = tid / xmax * patchsize;
-	if(patchsize > xmax-1-xi || patchsize > ymax-1-yi) {
-		sout << "# Bereichsüberschreitung" << std::endl;
-		return;
-	}
+	int xi = patchsize * (tid % xmax / patchsize) + *xoffset;
+	int yi = (int)(tid / xmax * patchsize) + *yoffset;
+	if(patchsize >= xmax-xi || patchsize >= ymax-yi) return;
 	int pixelCount = xmax*ymax;
 	int patchhalf = patchsize/2;
-	int patchcenter = xi + yi * xmax + patchhalf + patchhalf * xmax;
+	int patchcenter = xi + yi * xmax + patchhalf + patchhalf * xmax;//original patch
+	int patchcenter1 = ((cimg_library::cimg::rand() * (xmax - patchsize - 1)) + (cimg_library::cimg::rand() * (ymax - patchsize - 1)) * xmax) + patchsize + patchsize * xmax;
+	int patchcenter2 = ((cimg_library::cimg::rand() * (xmax - patchsize - 1)) + (cimg_library::cimg::rand() * (ymax - patchsize - 1)) * xmax) + patchsize + patchsize * xmax;
 	// = {xi + yi * xmax, xi + yi * xmax + pixelCount, xi + yi * xmax + pixelCount};
 	int subpixel[3], subpixel0[3], subpixelR[3], subpixelB[3];
 	subpixel[0] = xi + yi * xmax;
-	subpixel[1] = subpixel[0] + pixelCount;
-	subpixel[2] = subpixel[1] + pixelCount;
-	int deviation = (xNNF[patchcenter]) + (yNNF[patchcenter]) * xmax;
+	int deviation = xNNF[patchcenter] + yNNF[patchcenter] * xmax;
+	sout << patchcenter << " " << deviation;
 	subpixel0[0] = subpixel[0] + deviation;
-	subpixel0[1] = subpixel[1] + deviation;
-	subpixel0[2] = subpixel[2] + deviation;
-	++patchcenter;
-	deviation = (xNNF[patchcenter]) + (yNNF[patchcenter]) * xmax;
+	deviation = xNNF[patchcenter1] + yNNF[patchcenter1] * xmax;
+	sout << " " << patchcenter1 << " " << deviation;
+	subpixelR[0] = patchcenter1 + deviation;// - (patchhalf + patchhalf * xmax);
+	deviation = xNNF[patchcenter2] + yNNF[patchcenter2] * xmax;
+	sout << " " << patchcenter2 << " " << deviation << std::endl;
+	subpixelB[0] = patchcenter2 + deviation;// - (patchhalf + patchhalf * xmax);
+
+	subpixel[1] = subpixel[0] + pixelCount;
+	subpixel[2] = subpixel[0] + 2*pixelCount;
+	subpixel0[1] = subpixel0[0] + pixelCount;
+	subpixel0[2] = subpixel0[0] + 2*pixelCount;
+	subpixelR[1] = subpixelR[0] + pixelCount;
+	subpixelR[2] = subpixelR[0] + 2*pixelCount;
+	subpixelB[1] = subpixelB[0] + pixelCount;
+	subpixelB[2] = subpixelB[0] + 2*pixelCount;
+
+	//Patch-Distance
+	T dif0 = 0, difR = 0, difB = 0;
+	for(int row = patchsize; row > 0; --row) {
+		for(int i = patchsize; i > 0; --i
+				, ++subpixel[0], ++subpixel[1], ++subpixel[2]
+				, ++subpixel0[0], ++subpixel0[1], ++subpixel0[2]
+				, ++subpixelR[0], ++subpixelR[1], ++subpixelR[2]
+				, ++subpixelB[0], ++subpixelB[1], ++subpixelB[2]) {
+			dif0 += abs(in[subpixel[0]] - in2[subpixel0[0]]);
+			dif0 += abs(in[subpixel[1]] - in2[subpixel0[1]]);
+			dif0 += abs(in[subpixel[2]] - in2[subpixel0[2]]);
+			difR += abs(in[subpixel[0]] - in2[subpixelR[0]]);
+			difR += abs(in[subpixel[1]] - in2[subpixelR[1]]);
+			difR += abs(in[subpixel[2]] - in2[subpixelR[2]]);
+			difB += abs(in[subpixel[0]] - in2[subpixelB[0]]);
+			difB += abs(in[subpixel[1]] - in2[subpixelB[1]]);
+			difB += abs(in[subpixel[2]] - in2[subpixelB[2]]);
+		}
+		//plus one row, minus patch width
+		for(int help = xmax - patchsize, sp = 2; sp >= 0; --sp) {
+			subpixel[sp] += help;
+			subpixel0[sp] += help;
+			subpixelR[sp] += help;
+			subpixelB[sp] += help;
+		}
+	}
+	if(dif0 > difR && difR > difB) {
+		xNNF[patchcenter] = xNNF[patchcenter1];
+		yNNF[patchcenter] = yNNF[patchcenter1];
+	}
+	if(dif0 > difB && difB > difR) {
+		xNNF[patchcenter] = xNNF[patchcenter2];
+		yNNF[patchcenter] = yNNF[patchcenter2];
+	}
+}
+template <typename T>
+void kernelTest(const T *in, const T *in2, T *out, int *xNNF, int *yNNF, const int *xoffset, const int *yoffset, const int xmax, const int ymax, const int patchsize, int gid) {
+	size_t tid = gid * patchsize;
+	int xi = patchsize * (tid % xmax / patchsize) + *xoffset;
+	int yi = (int)(tid / xmax * patchsize) + *yoffset;
+	if(patchsize >= xmax-xi || patchsize >= ymax-yi) return;
+	int pixelCount = xmax*ymax;
+	int patchhalf = patchsize/2;
+	int patchcenter = xi + yi * xmax + patchhalf + patchhalf * xmax;//original patch
+	int patchcenter1 = patchcenter + 1;//rechts
+	int patchcenter2 = patchcenter + xmax;//unten
+	// = {xi + yi * xmax, xi + yi * xmax + pixelCount, xi + yi * xmax + pixelCount};
+	int subpixel[3], subpixel0[3], subpixelR[3], subpixelB[3];
+	subpixel[0] = xi + yi * xmax;
+	int deviation = xNNF[patchcenter] + yNNF[patchcenter] * xmax;
+	subpixel0[0] = subpixel[0] + deviation;
+	deviation = xNNF[patchcenter1] + yNNF[patchcenter1] * xmax;
 	subpixelR[0] = subpixel[0] + 1 + deviation;
-	subpixelR[1] = subpixel[0] + pixelCount;
-	subpixelR[2] = subpixel[1] + pixelCount;
-	out[patchcenter] = 0; out[patchcenter + xmax*ymax] = 255; out[patchcenter + 2*xmax*ymax] = 0;//rechts
-	--patchcenter;
-	out[patchcenter] = 255; out[patchcenter + xmax*ymax] = 0; out[patchcenter + 2*xmax*ymax] = 0;//original
-	patchcenter += xmax;
-	out[patchcenter] = 0; out[patchcenter + xmax*ymax] = 0; out[patchcenter + 2*xmax*ymax] = 255;//unten
-	deviation = (xNNF[patchcenter]) + (yNNF[patchcenter]) * xmax;
+	deviation = xNNF[patchcenter2] + yNNF[patchcenter2] * xmax;
 	subpixelB[0] = subpixel[0] + xmax + deviation;
-	subpixelB[1] = subpixel[0] + pixelCount;
-	subpixelB[2] = subpixel[1] + pixelCount;
+
+	subpixel[1] = subpixel[0] + pixelCount;
+	subpixel[2] = subpixel[0] + 2*pixelCount;
+	subpixel0[1] = subpixel0[0] + pixelCount;
+	subpixel0[2] = subpixel0[0] + 2*pixelCount;
+	subpixelR[1] = subpixelR[0] + pixelCount;
+	subpixelR[2] = subpixelR[0] + 2*pixelCount;
+	subpixelB[1] = subpixelB[0] + pixelCount;
+	subpixelB[2] = subpixelB[0] + 2*pixelCount;
+	
+	out[patchcenter] = 0;//original
+	out[patchcenter1 + xmax*ymax] = 0;//rechts
+	out[patchcenter2 + 2*xmax*ymax] = 0;//unten
 
 	//Patch-Distance
 	T dif0 = 0, difR = 0, difB = 0;
@@ -195,16 +261,12 @@ void kernelTest(const T *in, const T *in2, T *out, int *xNNF, int *yNNF, const i
 		difB += abs(in[subpixel[2]] - in2[subpixelB[2]]);
 	}
 	if(dif0 > difR && difR > difB) {
-		int patchcenter = xi + yi * xmax + patchhalf + patchhalf * xmax;
-		int help = patchcenter + 1;
-		xNNF[patchcenter] = xNNF[help];
-		yNNF[patchcenter] = yNNF[help];
+		xNNF[patchcenter] = xNNF[patchcenter1];
+		yNNF[patchcenter] = yNNF[patchcenter1];
 	}
 	if(dif0 > difB && difB > difR) {
-		int patchcenter = xi + yi * xmax + patchhalf + patchhalf * xmax;
-		int help = patchcenter + xmax;
-		xNNF[patchcenter] = xNNF[help];
-		yNNF[patchcenter] = yNNF[help];
+		xNNF[patchcenter] = xNNF[patchcenter2];
+		yNNF[patchcenter] = yNNF[patchcenter2];
 	}
 }
 template <typename T>
@@ -213,7 +275,8 @@ void StereoPatchMatchCL<T>::execute() {
 	ParameteredObject::execute();
 
 	// your code goes here :-)
-	int patchsize=5, offset;
+	int patchsize = 5, xoffset = 4, yoffset = 0;
+
 	auto &image = (imgOut().push_back(imgSrc()[0]))[0];//copy input image to output
 	imgOut().push_back(imgSrc()[1]);
 	imgOut().push_back(imgSrc()[0]);
@@ -221,8 +284,8 @@ void StereoPatchMatchCL<T>::execute() {
 	cimg_library::CImg<int> yNNF(xNNF);//y deviation
 	cimg_forXYZC(image, x, y, z, c) {//noise
 		image(x, y, z, c) = (T)(255);
-		xNNF(x, y) = (int)(cimg_library::cimg::rand() * (image.width()-1-patchsize) - x + patchsize/2+1);
-		yNNF(x, y) = (int)(cimg_library::cimg::rand() * (image.height()-1-patchsize) - y + patchsize/2+1);
+		xNNF(x, y) = (int)(cimg_library::cimg::rand() * (image.width()-1-2*patchsize) - x + patchsize);
+		yNNF(x, y) = (int)(cimg_library::cimg::rand() * (image.height()-1-2*patchsize) - y + patchsize);
 	}
 	//backup original
 	imgOut().push_back(xNNF);
@@ -249,8 +312,10 @@ void StereoPatchMatchCL<T>::execute() {
 	checkErr(err, L"Buffer::xBuffer()");
 	cl::Buffer yCL(context, CL_MEM_READ_WRITE | CL_MEM_USE_HOST_PTR, sizeof(T)*buffersize, yNNF.data(), &err);
 	checkErr(err, L"Buffer::yBuffer()");
-	cl::Buffer offsetCL(context, CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, sizeof(int), &offset, &err);
-	checkErr(err, L"Buffer::offset()");
+	cl::Buffer xoffsetCL(context, CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, sizeof(int), &xoffset, &err);
+	checkErr(err, L"Buffer::xoffset()");
+	cl::Buffer yoffsetCL(context, CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, sizeof(int), &yoffset, &err);
+	checkErr(err, L"Buffer::yoffset()");
 
 	//Kernel
 	ss.str(std::string());//clear string
@@ -276,6 +341,12 @@ void StereoPatchMatchCL<T>::execute() {
 		auto pos = code.find("###T###");
 		if(pos == std::string::npos) break;
 		code.replace(pos, 7, kernelDecl());//adjust kernel arguments based on template type
+	}
+	if(kernelDecl()=="float")
+	while(true) {
+		auto pos = code.find("abs");
+		if(pos == std::string::npos) break;
+		code.replace(pos, 7, "fabs");//adjust kernel arguments based on template type
 	}
 	sout << "#Source#\n" << code << std::endl;//print source
 	cl::Program program(context, code);//apply source to current context
@@ -315,28 +386,41 @@ void StereoPatchMatchCL<T>::execute() {
 	checkErr(err, L"Kernel::setArg(3)");
 	err = kernel.setArg(4, yCL);
 	checkErr(err, L"Kernel::setArg(4)");
-	err = kernel.setArg(5, offsetCL);
+	err = kernel.setArg(5, xoffsetCL);
 	checkErr(err, L"Kernel::setArg(5)");
+	err = kernel.setArg(6, yoffsetCL);
+	checkErr(err, L"Kernel::setArg(6)");
 
 	clock_t start, intermediate, end;//time
 	//add kernel to device execution queue
 	cl::CommandQueue queue(context, devices[0], 0, &err);
 	checkErr(err, L"CommandQueue::CommandQueue()");
 	cl::Event event;
+	xoffset = yoffset = 0;
 	start = clock();
-//#define X
+#define X
+	//for(int j=0; j<10; j++)
+	for(yoffset = 0; yoffset < patchsize-1; ++yoffset)
+	for(xoffset = 0; xoffset < patchsize; ++xoffset)
+	{
+		sout << yoffset*patchsize+xoffset << std::endl;
 #ifdef X
-	for(int i=0; i<width*height/(patchsize*patchsize); i++)
-		kernelTest(const_cast<T*>(imgSrc()[0].data()), const_cast<T*>(imgSrc()[1].data()), image.data(), xNNF.data(), yNNF.data(), &offset, width, height, patchsize, i);
+		for(int i=0; i<width*height/(patchsize*patchsize); ++i) {
+			kernelTest(const_cast<T*>(imgSrc()[0].data()), const_cast<T*>(imgSrc()[1].data()), image.data(), xNNF.data(), yNNF.data(), &xoffset, &yoffset, width, height, patchsize, i);
+			kernelRand(const_cast<T*>(imgSrc()[0].data()), const_cast<T*>(imgSrc()[1].data()), image.data(), xNNF.data(), yNNF.data(), &xoffset, &yoffset, width, height, patchsize, i);
+		}
+	}
+	intermediate = clock();
 #endif
 #ifndef X
-	err = queue.enqueueNDRangeKernel(kernel, cl::NullRange, 
-			cl::NDRange(width*height/(patchsize*patchsize)), //global range
-			cl::NDRange(1, 1), //local range
-			nullptr, 
-			&event);//object to wait for
-	checkErr(err, L"ComamndQueue::enqueueNDRangeKernel()");
-	event.wait();//return when execution is finished
+		err = queue.enqueueNDRangeKernel(kernel, cl::NullRange, 
+				cl::NDRange(width*height/(patchsize*patchsize)), //global range
+				cl::NDRange(1, 1), //local range
+				nullptr, 
+				&event);//object to wait for
+		checkErr(err, L"ComamndQueue::enqueueNDRangeKernel()");
+		event.wait();//return when execution is finished
+	}
 	intermediate = clock();//pure execution time
 	err = queue.enqueueReadBuffer(outCL, CL_TRUE, 0, buffersize, image.data());//copy buffer back to main memory
 	checkErr(err, L"ComamndQueue::enqueueReadBuffer()");
@@ -345,15 +429,18 @@ void StereoPatchMatchCL<T>::execute() {
 	err = queue.enqueueReadBuffer(yCL, CL_TRUE, 0, buffersize, yNNF.data());//copy buffer back to main memory
 	checkErr(err, L"ComamndQueue::enqueueReadBuffer3()");
 #endif
-	intermediate = clock();//TODO remove
 	end = clock();
+	sout << std::endl;
 	std::wcout << L"Time: " << ((intermediate-start)/(double)CLOCKS_PER_SEC) << L"s";
 	std::wcout << L" + " << ((end-intermediate)/(double)CLOCKS_PER_SEC) << L"s" << std::endl;//buffer copy
 	//changed NNFs
 	imgOut().push_back(xNNF);
 	imgOut().push_back(yNNF);
-	cimg_forXYZC(image, x, y, z, c)//reconstruct image
-		image(x, y, z, c) = (T)imgSrc()[0](x+xNNF(x, y), y+yNNF(x, y), z, c);
+	cimg_forXYZC(image, x, y, z, c) {//reconstruct image
+		if(0 > x+xNNF.data()[x, y] > image.width() || 0 > y+yNNF.data()[x, y] > image.height())
+			sout << x << xNNF.data()[x, y] << y << yNNF.data()[x, y] << std::endl;
+		image(x, y, z, c) = imgSrc()[0](x+xNNF(x, y), y+yNNF(x, y), z, c);
+	}
 }
 
 #endif /* _STEREOPATCHMATCHCL_HXX_ */
