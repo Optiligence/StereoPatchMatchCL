@@ -17,7 +17,7 @@ argosdisplay1.editorinfo		-731.389 -618.392
 argosdisplay1.templatetype		int
 argosdisplay1.cimgin		
 channelconverter1.output		cimg2vigramultiarray1.in
-stereopatchmatchcl1.cl_Devices		0
+stereopatchmatchcl1.cl_Devices		1
 frameselect1.type		FrameSelect
 frameselect1.editorinfo		-730.637 -421.826
 frameselect1.templatetype		int

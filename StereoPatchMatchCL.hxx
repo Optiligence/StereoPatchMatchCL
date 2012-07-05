@@ -269,6 +269,7 @@ void kernelTest(const T *in, const T *in2, T *out, int *xNNF, int *yNNF, const i
 		yNNF[patchcenter] = yNNF[patchcenter2];
 	}
 }
+#include <direct.h>
 template <typename T>
 void StereoPatchMatchCL<T>::execute() {
 	PARAMETEREDOBJECT_AVOID_REEXECUTION;
@@ -332,7 +333,9 @@ void StereoPatchMatchCL<T>::execute() {
 		<< ", __global const int *offset)"
 		<< std::endl;
 	*/
-	std::ifstream file(L"E:/_Own-Zone/_Studium/Praktikum/StereoPatchMatchCL/kernel.h");//load kernel code from disk, charon searches where your source code resides and in its core directory
+	std::ifstream file(L"./kernel.h");//load kernel code from disk, charon searches where your source code resides and in its core directory
+	char currentDir[50];
+	sout << _getcwd(currentDir, sizeof(currentDir) / sizeof(char)) << std::endl;
 	checkErr(file.is_open() ? CL_SUCCESS:-1, L"load ./kernel.h");
 	//std::string prog(std::istreambuf_iterator<wchar_t>(file), (std::istreambuf_iterator<wchar_t>()));//parse file into string
 	ss << file.rdbuf();//add remaining source
